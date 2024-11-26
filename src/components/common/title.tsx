@@ -6,7 +6,7 @@ type TitleProps = {
 };
 const Title = ({ name, Extra }: TitleProps) => {
   return (
-    <div className="flex w-full justify-between items-center border-b-2 rounded-sm p-4 h-16">
+    <div className="title flex w-full justify-between items-center border-b-2 p-4">
       <p className="text-xl font-bold">{name}</p>
       {Extra && Extra}
     </div>

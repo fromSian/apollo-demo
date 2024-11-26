@@ -4,7 +4,7 @@ import Table from "./table";
 
 const TablePanel = () => {
   return (
-    <div className="w-full h-full">
+    <div className="flex-1 h-full">
       <Table />
       <Paginator />
     </div>

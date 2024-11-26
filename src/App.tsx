@@ -7,7 +7,7 @@ function App() {
   return (
     <div className="flex flex-col sm:flex-row h-screen w-screen">
       <Catalog />
-      <div className="flex-1 flex">
+      <div className="content-wrap flex-1 flex">
         <RouterProvider router={router} />
       </div>
       <Question />

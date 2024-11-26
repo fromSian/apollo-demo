@@ -44,6 +44,34 @@ https://app.apollo.io/#/companies
 - 表頭 +，彈出 drawer，同 search table
 - 底部分頁
 
+5. 空狀態
+
+# 組件間關聯
+
+## operate bar
+
+1. default-view 路由控制
+2. show/hide filter 控制 filter side 顯示隱藏
+3. search 出現表格數據
+4. save search 彈窗
+5. 排序 控制表格
+6. search setting 出現彈窗
+
+## default filter side
+
+1. 頭部狀態篩選 控制表格數據
+2. filter 控制表格
+3. 底部 清除 filter 控制 more filters 面板
+
+## 表格
+
+1. 勾選，operate bar 出現 new
+
+## more filters
+
+1. apply filter 控制 filter
+2. 收起按鈕 展示 default filter side and table
+
 # 技術棧選擇
 
 # 日誌

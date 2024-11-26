@@ -1,7 +1,7 @@
 import React from "react";
 
 const Paginator = () => {
-  return <div className="h-4">Paginator</div>;
+  return <div className="paginator border-t">pagi</div>;
 };
 
 export default Paginator;

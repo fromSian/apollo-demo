@@ -1,18 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
+import { twMerge } from "tailwind-merge";
 
 const DefaultFilterPanel = () => {
+  const [hide, setHide] = useState(false);
   return (
-    <div className="w-48 border-r flex h-full flex-col max-h-full">
-      <div className="h-6">top</div>
-      <div
-        className="border-x overflow-y-auto"
-        style={{
-          height: "calc(100vh - 10rem)",
-        }}
-      >
+    <div
+      className={twMerge(
+        "border-r flex flex-col h-full transition-all",
+        !hide ? "filter-side-expand" : "filter-side-fold"
+      )}
+    >
+      <div className="filter-default-top">top</div>
+      <div className="filter-default-middle border-y overflow-y-auto">
         <div className="h-[800px]">middle</div>
       </div>
-      <div className="h-6">bottom</div>
+      <div className="bottom">filter-bottom</div>
     </div>
   );
 };

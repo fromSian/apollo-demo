@@ -79,3 +79,86 @@
     @apply bg-background text-foreground;
   }
 }
+/** 總體佈局 塊尺寸 */
+@layer components {
+  :root {
+    --catalog-width-expand: 12rem;
+    --catalog-width-fold: 2rem;
+
+    --header-height: 3rem;
+  }
+  .catalog {
+    @apply hidden sm:block;
+  }
+  .catalog-expand {
+    width: var(--catalog-width-expand);
+  }
+  .catalog-fold {
+    width: var(--catalog-width-fold);
+  }
+
+  .header {
+    @apply flex sm:hidden;
+    height: var(--header-height);
+  }
+
+  .content-wrap {
+    @apply h-[calc(100vh-var(--header-height))] sm:h-screen;
+  }
+}
+
+/** Companies 子頁面佈局 塊尺寸 */
+@layer components {
+  :root {
+    --title-height: 4rem;
+    --operate-bar-height: 3rem;
+    --bottom-height: 3rem;
+
+    --filter-side-default-expand: 12rem;
+    --filter-side-default-fold: 0rem;
+
+    --filter-side-default-top-height: 3rem;
+
+    --paginator-height: 3rem;
+  }
+
+  .title {
+    height: var(--title-height);
+  }
+  .main-wrap {
+    height: calc(100% - var(--title-height));
+  }
+  .filter-side-expand {
+    width: var(--filter-side-default-expand);
+  }
+  .filter-side-fold {
+    width: var(--filter-side-default-fold);
+  }
+  .operate-bar {
+    height: var(--operate-bar-height);
+  }
+
+  .sub-wrap {
+    height: calc(100% - var(--operate-bar-height));
+  }
+  .bottom {
+    height: var(--bottom-height);
+  }
+  .filter-default-top {
+    height: var(--filter-side-default-top-height);
+  }
+  .filter-default-middle {
+    height: calc(
+      100% - var(--filter-side-default-top-height) - var(--bottom-height)
+    );
+  }
+  .filter-more-main-height {
+    height: calc(100% - var(--bottom-height));
+  }
+  .companies-table {
+    height: calc(100% - var(--paginator-height));
+  }
+  .paginator {
+    height: var(--paginator-height);
+  }
+}

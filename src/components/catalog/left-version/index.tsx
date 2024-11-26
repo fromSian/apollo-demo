@@ -6,8 +6,8 @@ const LeftVersion = () => {
   return (
     <div
       className={twMerge(
-        "hidden sm:block border-r h-full transition",
-        fold ? "w-8" : "w-48"
+        "catalog border-r h-full transition-all duration-1500",
+        fold ? "catalog-fold" : "catalog-expand"
       )}
     >
       <button onClick={() => setFold((v) => !v)}>{fold ? "ex" : "fold"}</button>
