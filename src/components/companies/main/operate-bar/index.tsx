@@ -1,5 +1,14 @@
+import { useCompaniesUI } from "@/stores/companies-ui";
+
 const OperateBar = () => {
-  return <div className="operate-bar border-b"></div>;
+  const toggleShowFilterShow = useCompaniesUI(
+    (state) => state.toggleShowFilterShow
+  );
+  return (
+    <div className="operate-bar border-b">
+      <button onClick={toggleShowFilterShow}>toggle</button>
+    </div>
+  );
 };
 
 export default OperateBar;
