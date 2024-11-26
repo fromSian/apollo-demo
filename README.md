@@ -72,8 +72,15 @@ https://app.apollo.io/#/companies
 1. apply filter 控制 filter
 2. 收起按鈕 展示 default filter side and table
 
+多處控制
+多個組件需要顯示相同的信息
+搜索設置 過濾選項 字段
+
 # 技術棧選擇
 
 # 日誌
 
 1. add tailwindcss and shadcn/ui config
+
+2. searchparams 參數轉換 各組件用到的數據
+   數據組織更新邏輯
