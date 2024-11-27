@@ -5,6 +5,8 @@ type CompaniesUI = {
   toggleShowFilterShow: () => void;
   showMoreFilter: boolean;
   toggleShowMoreFilter: () => void;
+  tableSelectedLength: number;
+  setTableSelectedLength: (value: number) => void;
 };
 
 export const useCompaniesUI = create<CompaniesUI>()((set, get) => ({
@@ -15,4 +17,8 @@ export const useCompaniesUI = create<CompaniesUI>()((set, get) => ({
   showMoreFilter: false,
   toggleShowMoreFilter: () =>
     set((state) => ({ showMoreFilter: !state.showMoreFilter })),
+
+  tableSelectedLength: 0,
+  setTableSelectedLength: (value) =>
+    set(() => ({ tableSelectedLength: value })),
 }));

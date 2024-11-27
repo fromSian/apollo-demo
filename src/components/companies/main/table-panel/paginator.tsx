@@ -57,24 +57,25 @@ const Paginator = ({ page, size, total, updateFilters }: PaginatorProps) => {
 
   const goAfter = () => {
     if (page >= maxPage) {
-      updateFilters({
-        updateArr: [
-          {
-            key: "page",
-            value: +page + 1,
-          },
-        ],
-      });
+      return;
     }
+    updateFilters({
+      updateArr: [
+        {
+          key: "page",
+          value: +page + 1,
+        },
+      ],
+    });
   };
 
   return (
     <div className="paginator border-t flex items-center gap-6 px-4">
       <button
         className={twMerge(
-          "hover-gray scale-x-75",
+          "hover-gray-pagi scale-x-75",
           page <= 1
-            ? "hover-gray-disable cursor-not-allowed"
+            ? "hover-gray-pagi-disable cursor-not-allowed"
             : "hover:bg-hover_gray"
         )}
         onClick={goBefore}
@@ -89,9 +90,9 @@ const Paginator = ({ page, size, total, updateFilters }: PaginatorProps) => {
       />
       <button
         className={twMerge(
-          "hover-gray scale-x-75",
+          "hover-gray-pagi scale-x-75",
           page >= maxPage
-            ? "hover-gray-disable cursor-not-allowed"
+            ? "hover-gray-pagi-disable cursor-not-allowed"
             : "hover:bg-hover_gray"
         )}
         onClick={goAfter}

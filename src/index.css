@@ -33,7 +33,7 @@
     --accent-foreground: 0 0% 9%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
+    --border: 240 3.7% 89.4%;
     --input: 0 0% 89.8%;
     --ring: 0 0% 3.9%;
     --chart-1: 12 76% 61%;
@@ -61,7 +61,7 @@
     --accent-foreground: 0 0% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14.9%;
+    --border: 240 3.7% 89.4%;
     --input: 0 0% 14.9%;
     --ring: 0 0% 83.1%;
     --chart-1: 220 70% 50%;
@@ -180,12 +180,30 @@
 @layer components {
   :root {
     --gray: rgb(202, 202, 204, 0.8);
+    --light-gray: rgb(240, 240, 242);
+    --heavy-gray: rgb(145, 145, 145);
   }
-  .hover-gray {
+  .hover-gray-pagi {
     @apply w-12 h-8 flex items-center justify-center rounded-md transition;
   }
 
-  .hover-gray-disable {
+  .hover-gray-pagi-disable {
     @apply text-gray-300 hover:bg-none;
+  }
+
+  .border-button {
+    @apply border rounded-md bg-light_gray px-2 py-1 text-center align-middle hover:bg-hover_gray cursor-pointer text-ellipsis overflow-hidden text-nowrap;
+  }
+  .primary-button {
+    @apply border rounded-md bg-blue-600 px-2 py-1 text-center align-middle hover:bg-opacity-75 cursor-pointer text-white text-ellipsis overflow-hidden text-nowrap;
+  }
+
+  .text-button {
+    @apply rounded-md px-2 py-1 text-center align-middle hover:bg-hover_gray cursor-pointer text-ellipsis overflow-hidden text-nowrap;
+  }
+
+  .gradient-button {
+    background: linear-gradient(88deg, #21a7eb -20.28%, #a48cfa 119.17%);
+    @apply rounded-md px-2 py-1;
   }
 }

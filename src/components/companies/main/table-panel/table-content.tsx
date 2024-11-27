@@ -1,23 +1,28 @@
 import { DataTable } from "@/components/ui/data-table";
+import { useCompaniesUI } from "@/stores/companies-ui";
 import {
   getCoreRowModel,
-  getSortedRowModel,
-  SortingState,
+  RowSelectionState,
   useReactTable,
 } from "@tanstack/react-table";
-import React from "react";
+import { useEffect, useState } from "react";
 import { columns, data } from "./data";
 
 const TableContent = () => {
-  const [sorting, setSorting] = React.useState<SortingState>([]);
+  const tableSelectedLength = useCompaniesUI(
+    (state) => state.tableSelectedLength
+  );
+  const setTableSelectedLength = useCompaniesUI(
+    (state) => state.setTableSelectedLength
+  );
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
-    onSortingChange: setSorting,
-    getSortedRowModel: getSortedRowModel(),
+    onRowSelectionChange: setRowSelection,
     state: {
-      sorting,
+      rowSelection,
     },
     initialState: {
       columnPinning: {
@@ -25,6 +30,16 @@ const TableContent = () => {
       },
     },
   });
+  useEffect(() => {
+    setTableSelectedLength(Object.keys(rowSelection).length);
+  }, [rowSelection]);
+
+  useEffect(() => {
+    if (!tableSelectedLength) {
+      setRowSelection({});
+    }
+  }, [tableSelectedLength]);
+
   return (
     <div className="companies-table w-full overflow-auto relative">
       <DataTable columns={columns} table={table} />
