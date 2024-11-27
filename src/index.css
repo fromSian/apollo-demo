@@ -159,6 +159,9 @@
   .companies-table {
     height: calc(100% - var(--paginator-height));
   }
+  .companies-table > div {
+    height: 100%;
+  }
   .companies-table-expand {
     width: calc(100% - var(--filter-side-default-expand));
   }

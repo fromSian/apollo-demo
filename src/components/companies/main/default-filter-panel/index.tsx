@@ -8,7 +8,7 @@ import FilterBottom from "../filter-bottom";
 const DefaultFilterPanel = () => {
   const showfilterSide = useCompaniesUI((state) => state.showfilterSide);
 
-  const { filters, updateFilters } = useSearchParamsFilterPartial(["a", "b"]);
+  const { params, updateFilters } = useSearchParamsFilterPartial(["a", "b"]);
 
   return (
     <div
@@ -40,13 +40,16 @@ const DefaultFilterPanel = () => {
           <button
             onClick={() => {
               updateFilters({
-                removeKeys: ["page"],
+                // removeKeys: ["page"],
+                updateArr: [
+                  { key: "location", value: (Math.random() * 10).toFixed(0) },
+                ],
               });
             }}
           >
             reset
           </button>
-          {JSON.stringify(filters)}
+          {JSON.stringify(params)}
         </div>
       </ScrollArea>
       <div className="bottom">

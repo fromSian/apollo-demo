@@ -24,33 +24,48 @@ export type UpdateItem = {
 
 type UpdateArr = UpdateItem[];
 
-type UpdateParams = { updateArr?: UpdateArr; removeKeys?: string[] };
+export type UpdateParams = { updateArr?: UpdateArr; removeKeys?: string[] };
 
 /**
  * handle search params and filters relation
  * @param names keys 查詢參數keys
  * @returns
  */
-export const useSearchParamsFilterPartial = (names: string[]) => {
+export const useSearchParamsFilterPartial = <T extends Object>(
+  names: (keyof T)[],
+  mustHasOne?: (keyof T)[]
+) => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const filtersRef = useRef(new Map());
 
+  const [params, setParams] = useState<T>();
+  const [isFilled, setIsFilled] = useState(false);
+  const fillStatusRef = useRef(false);
+
   const getParsedFilters = useCallback(() => {
+    fillStatusRef.current = false;
     names.forEach((key) => {
-      if (searchParams.has(key)) {
-        const value = searchParams.get(key);
-        filtersRef.current.set(key, JSON.parse(value || "null"));
+      if (searchParams.has(String(key))) {
+        const value = searchParams.get(String(key));
+        const _value = JSON.parse(value || "null");
+        filtersRef.current.set(key, _value);
+        if (_value && mustHasOne?.includes(key) && !fillStatusRef.current) {
+          fillStatusRef.current = true;
+        }
       } else if (defaultFilters.hasOwnProperty(key)) {
         filtersRef.current.set(key, defaultFilters[key as DefaultFilterKeys]);
       } else {
         filtersRef.current.delete(key);
       }
     });
-    return Object.fromEntries(filtersRef.current.entries());
+    setIsFilled(fillStatusRef.current);
+    setParams(Object.fromEntries(filtersRef.current.entries()));
   }, [searchParams]);
 
-  const filters = useMemo(() => getParsedFilters(), [getParsedFilters]);
+  useEffect(() => {
+    getParsedFilters();
+  }, [getParsedFilters]);
 
   const updateFilters = useCallback(
     (
@@ -78,7 +93,8 @@ export const useSearchParamsFilterPartial = (names: string[]) => {
   );
 
   return {
-    filters,
+    isFilled,
+    params,
     updateFilters,
   };
 };

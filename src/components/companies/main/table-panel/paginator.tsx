@@ -1,18 +1,15 @@
 import SelectSimple from "@/components/ui/select-simple";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { twMerge } from "tailwind-merge";
-import { useSearchParamsFilterPartial } from "../../hooks/useFilter";
+import { UpdateParams } from "../../hooks/useFilter";
 
 type PaginatorProps = {
+  page: number;
   total: number;
+  size: number;
+  updateFilters: (v: UpdateParams) => void;
 };
-
-const Paginator = ({ total }: PaginatorProps) => {
-  const {
-    filters: { page, size },
-    updateFilters,
-  } = useSearchParamsFilterPartial(["page", "size"]);
-
+const Paginator = ({ page, size, total, updateFilters }: PaginatorProps) => {
   const { options, maxPage } = useMemo(() => {
     const pageCount = total % size ? Math.ceil(total / size) : total / size;
     const _options = Array.from({
@@ -102,7 +99,9 @@ const Paginator = ({ total }: PaginatorProps) => {
         {">"}
       </button>
       <p className="text-sm">
-        {page > maxPage ? "not valid page" : `${from} - ${end} of ${total}`}
+        {page < 1 || page > maxPage
+          ? "not valid page"
+          : `${from} - ${end} of ${total}`}
       </p>
     </div>
   );
