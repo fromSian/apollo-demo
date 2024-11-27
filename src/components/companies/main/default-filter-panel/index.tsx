@@ -4,12 +4,11 @@ import React, { useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { useSearchParamsFilterPartial } from "../../hooks/useFilter";
 import FilterBottom from "../filter-bottom";
+import List from "./list";
 import Quick from "./quick";
 
 const DefaultFilterPanel = () => {
   const showfilterSide = useCompaniesUI((state) => state.showfilterSide);
-
-  const { params, updateFilters } = useSearchParamsFilterPartial(["a", "b"]);
 
   return (
     <div
@@ -28,31 +27,7 @@ const DefaultFilterPanel = () => {
         className="filter-default-middle border-y overflow-y-auto"
       >
         <div className="h-[800px]">
-          <button
-            onClick={() => {
-              updateFilters({
-                updateArr: [
-                  { key: "page", value: (Math.random() * 10).toFixed(0) },
-                ],
-                removeKeys: [],
-              });
-            }}
-          >
-            click
-          </button>
-          <button
-            onClick={() => {
-              updateFilters({
-                // removeKeys: ["page"],
-                updateArr: [
-                  { key: "location", value: (Math.random() * 10).toFixed(0) },
-                ],
-              });
-            }}
-          >
-            reset
-          </button>
-          {JSON.stringify(params)}
+          <List />
         </div>
       </ScrollArea>
       <div className="bottom">
