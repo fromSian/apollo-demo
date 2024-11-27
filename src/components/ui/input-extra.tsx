@@ -7,7 +7,7 @@ export interface InputProps
 const InputExtra = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, ...props }, ref) => {
     return (
-      <div className="border rounded-md p-1 flex gap-2 items-center ">
+      <div className="border border-heavy_gray rounded-lg p-1 flex gap-2 items-center ">
         <MagnifyingGlassIcon width={20} height={20} />
         <input
           type={type}
