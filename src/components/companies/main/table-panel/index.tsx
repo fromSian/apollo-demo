@@ -43,7 +43,7 @@ const Table = memo(({ tableParamsConfig, updateFilters }: TableProps) => {
             address: "address",
           }))
         );
-        setTotal(Math.floor(Math.random() * 1000));
+        setTotal(120);
         setLoading(false);
       }, 500);
     } else {
