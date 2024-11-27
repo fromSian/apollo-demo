@@ -78,6 +78,8 @@ https://app.apollo.io/#/companies
 
 # 技術棧選擇
 
+`Vite` + `React` + `Typescript` + `react-router-dom` + `zustand` + `tailwindcss` + `shadcn/ui` + `tanstack/table` + `radix/icon`
+
 # 日誌
 
 1. add tailwindcss and shadcn/ui config
