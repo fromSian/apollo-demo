@@ -13,7 +13,10 @@ export const tableFilterKeys: (keyof TableParams)[] = [
   "type",
   "search",
 ];
-export const tableMustHasOneKeys: (keyof TableParams)[] = ["location"];
+export const tableMustHasOneKeys: (keyof TableParams)[] = [
+  "location",
+  "search",
+];
 
 export type ErrorParams = {
   error: string;
