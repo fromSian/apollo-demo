@@ -115,10 +115,10 @@
     --operate-bar-height: 3rem;
     --bottom-height: 3rem;
 
-    --filter-side-default-expand: 12rem;
+    --filter-side-default-expand: 16rem;
     --filter-side-default-fold: 0rem;
 
-    --filter-side-default-top-height: 3rem;
+    --filter-side-default-top-height: 6rem;
 
     --paginator-height: 3rem;
   }
@@ -182,6 +182,8 @@
     --gray: rgb(202, 202, 204, 0.8);
     --light-gray: rgb(240, 240, 242);
     --heavy-gray: rgb(145, 145, 145);
+    --light-blue: rgb(233, 242, 255);
+    --heavy-blue: rgb(8, 82, 194);
   }
   .hover-gray-pagi {
     @apply w-12 h-8 flex items-center justify-center rounded-md transition;
@@ -205,5 +207,12 @@
   .gradient-button {
     background: linear-gradient(88deg, #21a7eb -20.28%, #a48cfa 119.17%);
     @apply rounded-md px-2 py-1;
+  }
+}
+
+/** number or text */
+@layer components {
+  .number {
+    @apply bg-light_gray text-gray-500 rounded-lg px-1;
   }
 }

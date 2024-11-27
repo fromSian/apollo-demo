@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { useSearchParamsFilterPartial } from "../../hooks/useFilter";
 import FilterBottom from "../filter-bottom";
+import Quick from "./quick";
 
 const DefaultFilterPanel = () => {
   const showfilterSide = useCompaniesUI((state) => state.showfilterSide);
@@ -19,7 +20,9 @@ const DefaultFilterPanel = () => {
           : "filter-side-expand translate-x-0 scale-x-100 h-full opacity-100 border-r"
       )}
     >
-      <div className="filter-default-top">top</div>
+      <div className="filter-default-top px-3 py-2">
+        <Quick />
+      </div>
       <ScrollArea
         type="always"
         className="filter-default-middle border-y overflow-y-auto"

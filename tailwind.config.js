@@ -53,6 +53,8 @@ export default {
         hover_gray: "var(--gray)",
         light_gray: "var(--light-gray)",
         heavy_gray: "var(--heavy-gray)",
+        light_blue: "var(--light-blue)",
+        heavy_blue: "var(--heavy-blue)",
       },
     },
   },

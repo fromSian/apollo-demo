@@ -14,11 +14,7 @@ const ShowHideFilters = () => {
     >
       <SpaceBetweenHorizontallyIcon />
       {showfilterSide ? "Hide filters" : "Show filters"}
-      {count && (
-        <p className="bg-hover_gray rounded-full text-xs  w-4 h-4 text-center align-middle">
-          {count}
-        </p>
-      )}
+      {count && <p className="number text-xs">{count}</p>}
     </div>
   );
 };

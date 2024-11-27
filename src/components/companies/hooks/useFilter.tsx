@@ -13,6 +13,7 @@ const validateFilterMethod = {};
 const defaultFilters = {
   page: 1,
   size: 25,
+  type: "total",
 };
 
 type DefaultFilterKeys = keyof typeof defaultFilters;
