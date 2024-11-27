@@ -1,19 +1,28 @@
 import { useCompaniesUI } from "@/stores/companies-ui";
 import React, { useCallback, useState } from "react";
 import { twMerge } from "tailwind-merge";
+import { UpdateFilters } from "../../hooks/useFilter";
+import { countableFilterKeys } from "../config";
 
-const FilterBottom = () => {
+const FilterBottom = ({
+  filterLength,
+  updateFilters,
+}: {
+  filterLength: number;
+  updateFilters: UpdateFilters;
+}) => {
   const toggleShowMoreFilter = useCompaniesUI(
     (state) => state.toggleShowMoreFilter
   );
 
-  const [filterLength, setFilterLength] = useState(10);
   const clearFilters = useCallback(() => {
     if (!filterLength) {
       return;
     }
-    setFilterLength(0);
-  }, []);
+    updateFilters({
+      removeKeys: countableFilterKeys,
+    });
+  }, [filterLength]);
 
   return (
     <div className="flex items-center gap-4 h-full w-full max-w-[var(--filter-side-default-expand)] justify-center">

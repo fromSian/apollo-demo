@@ -1,7 +1,7 @@
 import { NumberToReadStr } from "@/lib/format";
 import React, { useCallback } from "react";
 import { twMerge } from "tailwind-merge";
-import { useSearchParamsFilterPartial } from "../../hooks/useFilter";
+import { UpdateFilters } from "../../hooks/useFilter";
 
 const options = [
   {
@@ -21,11 +21,13 @@ const options = [
   },
 ];
 
-const Quick = () => {
-  const { params, updateFilters } = useSearchParamsFilterPartial(["type"]);
-
-  const { type } = params || {};
-
+const Quick = ({
+  type,
+  updateFilters,
+}: {
+  type: string;
+  updateFilters: UpdateFilters;
+}) => {
   const handleClick = useCallback(
     (value: string) => {
       if (type === value) {
@@ -35,9 +37,9 @@ const Quick = () => {
         updateArr: [{ key: "type", value }],
       });
     },
-
     [type]
   );
+
   return (
     <div className="flex items-center justify-between border rounded-lg h-full p-1">
       {options.map((item) => (

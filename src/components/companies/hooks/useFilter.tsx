@@ -1,5 +1,6 @@
+import { useCompaniesUI } from "@/stores/companies-ui";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { SetURLSearchParams, useSearchParams } from "react-router-dom";
 
 /** 參數驗證
  *
@@ -26,47 +27,42 @@ export type UpdateItem = {
 type UpdateArr = UpdateItem[];
 
 export type UpdateParams = { updateArr?: UpdateArr; removeKeys?: string[] };
-
+export type UpdateFilters = (v: UpdateParams) => void;
+export type ParamsConfig<T> = {
+  isFilled: boolean;
+  params: T;
+};
 /**
  * handle search params and filters relation
  * @param names keys 查詢參數keys
  * @returns
  */
-export const useSearchParamsFilterPartial = <T extends Object>(
-  names: (keyof T)[],
-  mustHasOne?: (keyof T)[]
-) => {
+export const useSearchParamsFilterPartial = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const filtersRef = useRef(new Map());
-
-  const [params, setParams] = useState<T>();
-  const [isFilled, setIsFilled] = useState(false);
-  const fillStatusRef = useRef(false);
-
-  const getParsedFilters = useCallback(() => {
-    fillStatusRef.current = false;
-    names.forEach((key) => {
-      if (searchParams.has(String(key))) {
-        const value = searchParams.get(String(key));
-        const _value = JSON.parse(value || "null");
-        filtersRef.current.set(key, _value);
-        if (_value && mustHasOne?.includes(key) && !fillStatusRef.current) {
-          fillStatusRef.current = true;
+  const getParsedFilters = useCallback(
+    <T,>(names: (keyof T)[], mustHasOne?: (keyof T)[]) => {
+      let params: T = {};
+      let isFilled = mustHasOne && mustHasOne.length ? false : true;
+      const _searchParams = Object.fromEntries(searchParams.entries());
+      names.forEach((key) => {
+        if (_searchParams.hasOwnProperty(String(key))) {
+          const value = _searchParams[String(key)];
+          params[key] = value;
+          if (value && mustHasOne?.includes(key) && !isFilled) {
+            isFilled = true;
+          }
+        } else if (defaultFilters.hasOwnProperty(key)) {
+          params[key] = defaultFilters[key as DefaultFilterKeys];
         }
-      } else if (defaultFilters.hasOwnProperty(key)) {
-        filtersRef.current.set(key, defaultFilters[key as DefaultFilterKeys]);
-      } else {
-        filtersRef.current.delete(key);
-      }
-    });
-    setIsFilled(fillStatusRef.current);
-    setParams(Object.fromEntries(filtersRef.current.entries()));
-  }, [searchParams]);
-
-  useEffect(() => {
-    getParsedFilters();
-  }, [getParsedFilters]);
+      });
+      return {
+        isFilled,
+        params,
+      };
+    },
+    [searchParams]
+  );
 
   const updateFilters = useCallback(
     (
@@ -79,7 +75,7 @@ export const useSearchParamsFilterPartial = <T extends Object>(
         updateArr?.length &&
           updateArr.forEach((item, index) => {
             const { key, value } = item;
-            params.set(key, JSON.stringify(value));
+            params.set(key, value);
           });
         removeKeys?.length &&
           removeKeys.forEach((key) => {
@@ -92,10 +88,8 @@ export const useSearchParamsFilterPartial = <T extends Object>(
     },
     []
   );
-
   return {
-    isFilled,
-    params,
     updateFilters,
+    getParsedFilters,
   };
 };

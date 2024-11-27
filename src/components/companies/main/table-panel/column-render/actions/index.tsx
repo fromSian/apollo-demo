@@ -1,4 +1,5 @@
 import TooltipSimple from "@/components/ui/tooltip-simple";
+import { PlusCircledIcon, PlusIcon } from "@radix-ui/react-icons";
 import React, { useEffect, useRef, useState } from "react";
 import Detail from "./detail";
 
@@ -20,22 +21,27 @@ const ActionsCell = ({ row }) => {
     timerRef.current = setTimeout(() => {
       setSaved((v) => !v);
       setLoading(false);
-    }, 4000);
+    }, 1000);
   };
   return (
     <div>
       {saved ? (
         <Detail />
       ) : loading ? (
-        <TooltipSimple content={"loading"} className="text-gray-400 hover-gray">
-          save
+        <TooltipSimple
+          content={"loading"}
+          className="border-button opacity-30 flex gap-1 items-center "
+        >
+          <PlusIcon />
+          Save
         </TooltipSimple>
       ) : (
         <button
-          className="hover-gray hover:bg-hover_gray active:scale-95"
+          className="flex gap-1 items-center border-button active:scale-95"
           onClick={handleSave}
         >
-          save
+          <PlusIcon />
+          Save
         </button>
       )}
     </div>

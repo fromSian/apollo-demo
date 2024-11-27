@@ -1,15 +1,15 @@
-import { MixIcon } from "@radix-ui/react-icons";
+import { MixIcon, PieChartIcon } from "@radix-ui/react-icons";
 import React from "react";
 
-const Empty = () => {
+const Error = () => {
   return (
     <div className="w-full h-full flex justify-center items-center flex-col">
-      <MixIcon width={120} height={120} />
+      <PieChartIcon width={120} height={120} />
       <p className="font-bold w-[50%] text-center mt-4">
-        no data exists, please change the filter
+        something wrong with the params
       </p>
     </div>
   );
 };
 
-export default Empty;
+export default Error;

@@ -1,10 +1,9 @@
-import React from "react";
-import LoadingIcon from "../icons/loading-icon";
+import { UpdateIcon } from "@radix-ui/react-icons";
 
 const Loading = () => {
   return (
-    <div className="animate-spin w-3">
-      <LoadingIcon />
+    <div className="w-full h-full flex justify-center items-center flex-col">
+      <UpdateIcon width={120} height={120} className="animate-spin" />
     </div>
   );
 };

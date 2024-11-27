@@ -2,13 +2,25 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { useCompaniesUI } from "@/stores/companies-ui";
 import React, { useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
-import { useSearchParamsFilterPartial } from "../../hooks/useFilter";
+import { ParamsConfig, UpdateFilters } from "../../hooks/useFilter";
+import { DefaultFilterParams } from "../config";
 import FilterBottom from "../filter-bottom";
 import List from "./list";
 import Quick from "./quick";
 
-const DefaultFilterPanel = () => {
+const DefaultFilterPanel = ({
+  defaultFilterPanelParamsConfig,
+  filterLength,
+  updateFilters,
+}: {
+  defaultFilterPanelParamsConfig: ParamsConfig<DefaultFilterParams>;
+  filterLength: number;
+  updateFilters: UpdateFilters;
+}) => {
   const showfilterSide = useCompaniesUI((state) => state.showfilterSide);
+
+  const { params } = defaultFilterPanelParamsConfig;
+  const { type, ...rest } = params;
 
   return (
     <div
@@ -20,18 +32,19 @@ const DefaultFilterPanel = () => {
       )}
     >
       <div className="filter-default-top px-3 py-2">
-        <Quick />
+        <Quick type={type} updateFilters={updateFilters} />
       </div>
       <ScrollArea
         type="always"
         className="filter-default-middle border-y overflow-y-auto"
       >
-        <div className="h-[800px]">
-          <List />
-        </div>
+        <List params={rest} updateFilters={updateFilters} />
       </ScrollArea>
       <div className="bottom">
-        <FilterBottom />
+        <FilterBottom
+          filterLength={filterLength}
+          updateFilters={updateFilters}
+        />
       </div>
     </div>
   );

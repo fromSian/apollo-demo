@@ -1,8 +1,8 @@
 import { useCompaniesUI } from "@/stores/companies-ui";
 import { SpaceBetweenHorizontallyIcon } from "@radix-ui/react-icons";
-const count = 10;
+import { memo } from "react";
 
-const ShowHideFilters = () => {
+const ShowHideFilters = memo(({ filterLength }: { filterLength: number }) => {
   const toggleShowFilterShow = useCompaniesUI(
     (state) => state.toggleShowFilterShow
   );
@@ -14,9 +14,9 @@ const ShowHideFilters = () => {
     >
       <SpaceBetweenHorizontallyIcon />
       {showfilterSide ? "Hide filters" : "Show filters"}
-      {count && <p className="number text-xs">{count}</p>}
+      {filterLength ? <p className="number text-xs">{filterLength}</p> : ""}
     </div>
   );
-};
+});
 
 export default ShowHideFilters;

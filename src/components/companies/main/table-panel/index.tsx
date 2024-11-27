@@ -1,29 +1,28 @@
 import Loading from "@/components/common/loading";
 import { useCompaniesUI } from "@/stores/companies-ui";
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { twMerge } from "tailwind-merge";
-import { useSearchParamsFilterPartial } from "../../hooks/useFilter";
-import { tableRelatedSearchParamsKeys } from "../../settings/table";
+import { v4 as uuid } from "uuid";
+import { ParamsConfig, UpdateFilters } from "../../hooks/useFilter";
+import { TableParams } from "../config";
 import Empty from "../status/empty";
-import { data } from "./data";
+import Initial from "../status/initial";
 import TableWrap from "./table-wrap";
 
-export type Params = {
-  location: string;
-  page: number;
-  size: number;
-};
 /** 加request 中斷邏輯 */
 
-const Table = () => {
+type TableProps = {
+  tableParamsConfig: ParamsConfig<TableParams>;
+  updateFilters: UpdateFilters;
+};
+
+const Table = memo(({ tableParamsConfig, updateFilters }: TableProps) => {
+  const { isFilled, params } = tableParamsConfig;
   const showfilterSide = useCompaniesUI((state) => state.showfilterSide);
-  const { params, updateFilters, isFilled } =
-    useSearchParamsFilterPartial<Params>(
-      ["location", "page", "size"],
-      ["location"]
-    );
+
   const [loading, setLoading] = useState(false);
-  const [datas, setDatas] = useState([]);
+  const [datas, setDatas] = useState<unknown[]>([]);
   const [columnsKeys, setColumnsKeys] = useState([]);
 
   const [total, setTotal] = useState(10);
@@ -34,13 +33,25 @@ const Table = () => {
     if (isFilled && params) {
       setLoading(true);
       setTimeout(() => {
-        setDatas(data);
+        setDatas(
+          Array.from({ length: +params.size || 25 }).map((_, index) => ({
+            id: uuid(),
+            amount: 100 + index,
+            status: "pending",
+            email: "m@example.com",
+            name: "f",
+            address: "address",
+          }))
+        );
+        setTotal(Math.floor(Math.random() * 1000));
         setLoading(false);
-      }, 200);
+      }, 500);
     } else {
       setDatas([]);
+      setTotal(0);
     }
   }, [params, isFilled]);
+
   return (
     <div
       className={twMerge(
@@ -48,11 +59,14 @@ const Table = () => {
         showfilterSide ? "companies-table-expand" : "companies-table-fold"
       )}
     >
-      {loading ? (
+      {!isFilled ? (
+        <Initial />
+      ) : loading ? (
         <Loading />
       ) : datas && datas.length ? (
         <TableWrap
           total={total}
+          datas={datas}
           updateFilters={updateFilters}
           params={params}
         />
@@ -61,6 +75,6 @@ const Table = () => {
       )}
     </div>
   );
-};
+});
 
 export default Table;

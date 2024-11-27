@@ -1,16 +1,11 @@
 import { ColumnDef } from "@tanstack/react-table";
-import { v4 as uuid } from "uuid";
 import ActionsCell from "./column-render/actions";
 import AddHeader from "./column-render/add";
 import NameCell from "./column-render/name";
 import SelectionCell from "./column-render/selection/cell";
 import SelectionHeader from "./column-render/selection/header";
-type DataProps = {
-  id: "";
-  name: "";
-};
 
-export const columns: ColumnDef<{}>[] = [
+export const columns: ColumnDef<unknown>[] = [
   {
     id: "select",
     accessorKey: "select",
@@ -23,15 +18,20 @@ export const columns: ColumnDef<{}>[] = [
     cell: NameCell,
   },
   {
+    accessorKey: "id",
+    header: "Id",
+    size: 400,
+  },
+  {
     accessorKey: "email",
     header: "Actions",
     cell: ActionsCell,
-    size: 400,
+    size: 200,
   },
   {
     accessorKey: "status",
     header: "Numbers",
-    size: 400,
+    size: 200,
   },
   {
     accessorKey: "amount",
@@ -44,12 +44,3 @@ export const columns: ColumnDef<{}>[] = [
     size: 20,
   },
 ];
-
-export const data = Array.from({ length: 15 }).map((_, index) => ({
-  id: uuid(),
-  amount: 100 + index,
-  status: "pending",
-  email: "m@example.com",
-  name: "f",
-  address: "address",
-}));

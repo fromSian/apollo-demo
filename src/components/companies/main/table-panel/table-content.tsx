@@ -6,9 +6,9 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { useEffect, useState } from "react";
-import { columns, data } from "./data";
+import { columns } from "./config";
 
-const TableContent = () => {
+const TableContent = ({ datas }: { datas: unknown[] }) => {
   const tableSelectedLength = useCompaniesUI(
     (state) => state.tableSelectedLength
   );
@@ -17,7 +17,7 @@ const TableContent = () => {
   );
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
   const table = useReactTable({
-    data,
+    data: datas,
     columns,
     getCoreRowModel: getCoreRowModel(),
     onRowSelectionChange: setRowSelection,
