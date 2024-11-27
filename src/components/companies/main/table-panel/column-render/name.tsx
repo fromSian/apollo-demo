@@ -1,4 +1,4 @@
-const NameCell = ({ row }) => (
+const NameCell = () => (
   <div className="flex gap-2 items-center">
     <img
       className="rounded-md w-8 h-8"

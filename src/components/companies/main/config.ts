@@ -5,6 +5,7 @@ export const defaultFilterPanelKeys: (keyof DefaultFilterParams)[] = [
   "type",
   "location",
 ];
+
 export const tableFilterKeys: (keyof TableParams)[] = [
   "page",
   "size",
@@ -31,4 +32,7 @@ export type TableParams = {
   location: string;
   type: string;
   search: string;
+};
+export type DefaultFilterListParams = {
+  location: string;
 };

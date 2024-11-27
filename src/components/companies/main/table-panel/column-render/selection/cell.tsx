@@ -1,7 +1,8 @@
 import { Checkbox } from "@/components/ui/checkbox";
+import { Row } from "@tanstack/react-table";
 import React from "react";
 
-const SelectionCell = ({ row }) => {
+const SelectionCell = ({ row }: { row: Row<unknown> }) => {
   return (
     <Checkbox
       checked={row.getIsSelected()}

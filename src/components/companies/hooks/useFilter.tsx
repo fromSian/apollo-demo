@@ -42,18 +42,18 @@ export const useSearchParamsFilterPartial = () => {
 
   const getParsedFilters = useCallback(
     <T,>(names: (keyof T)[], mustHasOne?: (keyof T)[]) => {
-      let params: T = {};
+      let params: T = {} as T;
       let isFilled = mustHasOne && mustHasOne.length ? false : true;
       const _searchParams = Object.fromEntries(searchParams.entries());
       names.forEach((key) => {
-        if (_searchParams.hasOwnProperty(String(key))) {
-          const value = _searchParams[String(key)];
-          params[key] = value;
+        if (_searchParams.hasOwnProperty(key)) {
+          const value = _searchParams[key as string];
+          params[key] = value as T[keyof T];
           if (value && mustHasOne?.includes(key) && !isFilled) {
             isFilled = true;
           }
         } else if (defaultFilters.hasOwnProperty(key)) {
-          params[key] = defaultFilters[key as DefaultFilterKeys];
+          params[key] = defaultFilters[key as DefaultFilterKeys] as T[keyof T];
         }
       });
       return {
@@ -75,7 +75,7 @@ export const useSearchParamsFilterPartial = () => {
         updateArr?.length &&
           updateArr.forEach((item, index) => {
             const { key, value } = item;
-            params.set(key, value);
+            params.set(key, value as string);
           });
         removeKeys?.length &&
           removeKeys.forEach((key) => {

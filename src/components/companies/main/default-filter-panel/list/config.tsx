@@ -14,17 +14,18 @@ export type DetailComponentProps<T> = {
   updateFilters: (params: UpdateParams) => void;
 };
 
-export type Config<T> = {
+export type Config = {
   id: string;
   name: string;
   description: string;
   //   DetailComponent: LazyExoticComponent<
   //     (props: DetailComponentProps<T>) => JSX.Element
   //   >;
-  DetailComponent: (props: DetailComponentProps<T>) => JSX.Element;
+  DetailComponent: (props: DetailComponentProps<any>) => JSX.Element;
   Icon?: ReturnType<typeof GlobeIcon>;
-  keys: (keyof T)[];
+  keys: any[];
   hidden?: boolean;
+  params: Object;
 };
 
 export const configs = [

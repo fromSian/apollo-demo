@@ -1,8 +1,8 @@
 import { UpdateFilters } from "@/components/companies/hooks/useFilter";
 import { Accordion } from "@/components/ui/accordion";
 import { useEffect, useState } from "react";
-import { DefaultFilterParams } from "../../config";
-import { configs as baseConfigs } from "./config";
+import { DefaultFilterListParams } from "../../config";
+import { configs as baseConfigs, Config } from "./config";
 import ItemHidden from "./item-hidden";
 import ItemVisible from "./item-visible";
 
@@ -10,7 +10,7 @@ const List = ({
   params,
   updateFilters,
 }: {
-  params: DefaultFilterParams;
+  params: DefaultFilterListParams;
   updateFilters: UpdateFilters;
 }) => {
   const [configs, setConfigs] = useState(baseConfigs);
@@ -19,8 +19,8 @@ const List = ({
       if (config.hidden) {
         return config;
       } else {
-        let _params = {};
-        config.keys.forEach((key) => {
+        let _params: Partial<DefaultFilterListParams> = {};
+        (config.keys as (keyof DefaultFilterListParams)[]).forEach((key) => {
           if (params.hasOwnProperty(key) && params[key]) {
             _params[key] = params[key];
           }
@@ -35,10 +35,10 @@ const List = ({
     <Accordion type="single" collapsible className="w-full">
       {configs.map((config) =>
         config.hidden ? (
-          <ItemHidden config={config} key={config.id} />
+          <ItemHidden config={config as Config} key={config.id} />
         ) : (
           <ItemVisible
-            config={config}
+            config={config as Config}
             key={config.id}
             updateFilters={updateFilters}
           />

@@ -3,7 +3,7 @@ import { PlusCircledIcon, PlusIcon } from "@radix-ui/react-icons";
 import React, { useEffect, useRef, useState } from "react";
 import Detail from "./detail";
 
-const ActionsCell = ({ row }) => {
+const ActionsCell = () => {
   const [loading, setLoading] = useState(false);
   const [saved, setSaved] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout>>();

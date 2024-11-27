@@ -9,11 +9,11 @@ import { LockClosedIcon } from "@radix-ui/react-icons";
 import { Link2Icon } from "lucide-react";
 import { Config } from "./config";
 
-type ItemHiddenProps<T> = {
-  config: Config<T>;
+type ItemHiddenProps = {
+  config: Config;
 };
 
-const ItemHidden = <T,>({ config }: ItemHiddenProps<T>) => {
+const ItemHidden = ({ config }: ItemHiddenProps) => {
   return (
     <AccordionItem value={config.id} className="">
       <div className="flex justify-between items-center p-4 bg-light_gray rounded-md cursor-pointer hover:text-heavy_blue transition">
